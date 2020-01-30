@@ -1,0 +1,169 @@
+// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
+/dts-v1/;
+
+#include <dt-bindings/gpio/gpio.h>
+#include <dt-bindings/input/input.h>
+
+#include "qca9557.dtsi"
+
+/ {
+	compatible = "netgear,jnr3300-v1", "qca,qca9558";
+	model = "Netgear JNR3300 v1";
+
+	chosen {
+		bootargs = "console=ttyS0,115200n8";
+	};
+
+	aliases {
+		led-boot = &led_system;
+		led-failsafe = &led_system;
+		led-running = &led_system;
+		led-upgrade = &led_system;
+		label-mac-device = &eth0;
+	};
+
+	leds {
+		compatible = "gpio-leds";
+
+		led_system: power_green {
+			label = "netgear:green:power";
+			gpios = <&gpio 25 GPIO_ACTIVE_LOW>;
+			default-state = "on";
+		};
+
+		power_amber {
+            label = "netgear:amber:power";
+            gpios = <&gpio 26 GPIO_ACTIVE_LOW>;
+        };
+
+        wan_green {
+            label = "netgear:green:wan";
+            gpios = <&gpio 22 GPIO_ACTIVE_LOW>;
+        };
+
+        wan_amber {
+            label = "netgear:amber:wan";
+            gpios = <&gpio 23 GPIO_ACTIVE_LOW>;
+        };
+
+        lan1_amber {
+            label = "netgear:amber:lan1";
+            gpios = <&gpio 10 GPIO_ACTIVE_LOW>;
+        };
+
+        lan2_amber {
+            label = "netgear:amber:lan2";
+            gpios = <&gpio 11 GPIO_ACTIVE_LOW>;
+        };
+
+        lan3_amber {
+            label = "netgear:amber:lan3";
+            gpios = <&gpio 12 GPIO_ACTIVE_LOW>;
+        };
+
+        lan4_amber {
+            label = "netgear:amber:lan4";
+            gpios = <&gpio 13 GPIO_ACTIVE_LOW>;
+        };
+
+		wlan {
+			label = "netgear:green:wlan";
+			gpios = <&gpio 0 GPIO_ACTIVE_LOW>;
+			linux,default-trigger = "phy0tpt";
+		};
+
+		wps {
+			label = "netgear:green:wps";
+			gpios = <&gpio 15 GPIO_ACTIVE_LOW>;
+		};
+	};
+
+	keys {
+		compatible = "gpio-keys";
+
+		reset {
+			label = "reset";
+			linux,code = <KEY_RESTART>;
+			gpios = <&gpio 17 GPIO_ACTIVE_LOW>;
+			debounce-interval = <60>;
+		};
+
+		wps {
+			label = "qss";
+			linux,code = <KEY_WPS_BUTTON>;
+			gpios = <&gpio 16 GPIO_ACTIVE_LOW>;
+			debounce-interval = <60>;
+		};
+
+		rfkill {
+            label = "rfkill";
+            linux,code = <KEY_RFKILL>;
+            gpios = <&gpio 21 GPIO_ACTIVE_LOW>;
+            debounce-interval = <60>;
+        };
+	};
+};
+
+&uart {
+	status = "okay";
+};
+
+&spi {
+	status = "okay";
+	num-cs = <1>;
+
+	flash@0 {
+		compatible = "jedec,spi-nor";
+		reg = <0>;
+		spi-max-frequency = <25000000>;
+
+		partitions {
+			compatible = "fixed-partitions";
+			#address-cells = <1>;
+			#size-cells = <1>;
+
+			uboot: partition@0 {
+				label = "u-boot";
+				reg = <0x000000 0x020000>;
+				read-only;
+			};
+
+			partition@20000 {
+				compatible = "tplink,firmware";
+				label = "firmware";
+				reg = <0x020000 0x7d0000>;
+			};
+
+			art: partition@7f0000 {
+				label = "art";
+				reg = <0x7f0000 0x010000>;
+				read-only;
+			};
+		};
+	};
+};
+
+&mdio0 {
+	status = "okay";
+
+	switch0@1f {
+		compatible = "qca,ar8236";
+		reg = <0x1f>;
+	};
+};
+
+&eth0 {
+	status = "okay";
+	phy-mode = "mii";
+	mtd-mac-address = <&uboot 0x1fc00>;
+	fixed-link {
+		speed = <100>;
+		full-duplex;
+	};
+};
+
+&wmac {
+	status = "okay";
+	mtd-cal-data = <&art 0x1000>;
+	mtd-mac-address = <&uboot 0x1fc00>;
+};
