@@ -88,6 +88,7 @@ ar71xx_setup_interfaces()
 	lbe-m5|\
 	loco-m-xw|\
 	mr12|\
+	dap-2310-a1|\
 	mr16|\
 	mr1750|\
 	mr1750v2|\

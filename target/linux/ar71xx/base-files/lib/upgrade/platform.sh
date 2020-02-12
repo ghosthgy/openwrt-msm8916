@@ -352,6 +352,7 @@ platform_check_image() {
 	f9k1115v2|\
 	hornet-ub|\
 	mr12|\
+	dap-2310-a1|\
 	mr16|\
 	zbt-we1526|\
 	zcn-1523h-2|\
