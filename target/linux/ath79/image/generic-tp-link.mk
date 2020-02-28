@@ -1,5 +1,49 @@
 include ./common-tp-link.mk
 
+define Device/mercury_mw150r-v10
+  $(Device/tplink-8mlzma)
+  ATH_SOC := ar9331
+  DEVICE_TITLE := Mercury MW150R v10
+  TPLINK_HWID := 0x01500010
+  SUPPORTED_DEVICES += mw150r-v10
+endef
+TARGET_DEVICES += mercury_mw150r-v10
+
+define Device/netgear_jnr3300-v1
+  $(Device/tplink-8mlzma)
+  ATH_SOC := qca9558
+  DEVICE_TITLE := Netgear JNR3300 v1
+  TPLINK_HWID := 0x33000001
+  SUPPORTED_DEVICES += jnr3300-v1
+endef
+TARGET_DEVICES += netgear_jnr3300-v1
+
+define Device/tplink_tl-wr845n-v3
+  $(Device/tplink-8mlzma)
+  ATH_SOC := qca9533
+  DEVICE_TITLE := TP-Link TL-WR845N v3
+  TPLINK_HWID := 0x08450003
+  SUPPORTED_DEVICES += tl-wr845n-v3
+endef
+TARGET_DEVICES += tplink_tl-wr845n-v3
+
+define Device/tplink_tl-wr886n-v2
+  $(Device/tplink-8mlzma)
+  ATH_SOC := qca9561
+  DEVICE_TITLE := TP-Link TL-WR886N v2
+  TPLINK_HWID := 0x08860002
+  SUPPORTED_DEVICES += tl-wr886n-v2
+endef
+TARGET_DEVICES += tplink_tl-wr886n-v2
+
+define Device/tplink_tl-wr941n-v5-cn
+  $(Device/tplink-8m)
+  ATH_SOC := ar7240
+  DEVICE_TITLE := TP-Link TL-WR941N v5 (CN)
+  TPLINK_HWID := 0x09410005
+endef
+TARGET_DEVICES += tplink_tl-wr941n-v5-cn
+
 define Device/tplink_archer-a7-v5
   $(Device/tplink-safeloader-uimage)
   ATH_SOC := qca9563
@@ -234,7 +278,7 @@ endef
 TARGET_DEVICES += tplink_tl-wdr3600-v1
 
 define Device/tplink_tl-wdr4300-v1
-  $(Device/tplink-8mlzma)
+  $(Device/tplink-16mlzma)
   ATH_SOC := ar9344
   DEVICE_TITLE := TP-Link TL-WDR4300 v1
   DEVICE_PACKAGES := kmod-usb-core kmod-usb2 kmod-usb-ledtrig-usbport

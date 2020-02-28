@@ -83,6 +83,8 @@ ath79_setup_interfaces()
 	tplink,tl-wr841-v12|\
 	tplink,tl-wr842n-v1|\
 	tplink,tl-wr842n-v3|\
+	tplink,tl-wr845n-v3|\
+	tplink,tl-wr886n-v2|\
 	ubnt,airrouter)
 		ucidef_set_interface_wan "eth1"
 		ucidef_add_switch "switch0" \
@@ -188,6 +190,11 @@ ath79_setup_interfaces()
 		ucidef_add_switch "switch0" \
 		"0@eth1" "1:lan" "2:lan" "3:lan" "4:lan"
 		;;
+	tplink,tl-wr941n-v5-cn)
+		ucidef_set_interface_wan "eth0"
+		ucidef_add_switch "switch0" \
+		"0@eth1" "1:lan" "2:lan" "3:lan" "4:lan"
+		;;
 	phicomm,k2t)
 		ucidef_add_switch "switch0" \
 			"0@eth0" "3:lan:1" "5:lan:2" "4:wan"
@@ -206,6 +213,10 @@ ath79_setup_interfaces()
 	tplink,tl-wr941n-v7-cn)
 		ucidef_add_switch "switch0" \
 			"0@eth0" "2:lan:1" "3:lan:2" "4:lan:3" "5:lan:4" "1:wan"
+		;;
+	netgear,jnr3300-v1)
+		ucidef_add_switch "switch0" \
+			"0@eth0" "1:lan:1" "2:lan:2" "3:lan:3" "4:lan:4" "5:wan"
 		;;
 	tplink,archer-c5-v1|\
 	tplink,archer-c7-v1|\
@@ -247,6 +258,11 @@ ath79_setup_interfaces()
 		;;
 	tplink,tl-wr941-v2)
 		ucidef_set_interfaces_lan_wan "lan1 lan2 lan3 lan4" "wan"
+		;;
+	mercury,mw150r-v10)
+		ucidef_set_interface_wan "eth1"
+		ucidef_add_switch "switch0" \
+			"0@eth0" "1:lan:1" "2:lan:2" "3:lan:3" "4:lan:4"
 		;;
 	ubnt,acb-isp)
 		ucidef_set_interface_wan "eth1"
@@ -363,6 +379,10 @@ ath79_setup_macs()
 		;;
 	tplink,tl-wr941-v2|\
 	tplink,tl-wr941n-v7-cn)
+		base_mac=$(mtd_get_mac_binary u-boot 130048)
+		wan_mac=$(macaddr_add "$base_mac" 1)
+		;;
+	netgear,jnr3300-v1)
 		base_mac=$(mtd_get_mac_binary u-boot 130048)
 		wan_mac=$(macaddr_add "$base_mac" 1)
 		;;
