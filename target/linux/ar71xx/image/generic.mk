@@ -1206,6 +1206,13 @@ define Device/dap-1330-a1
 endef
 TARGET_DEVICES += dap-1330-a1
 
+define Device/dap-2310-a1
+  $(Device/mr12)
+  DEVICE_TITLE := D-Link DAP-2310 rev. A1
+  BOARDNAME := DAP-2310-A1
+endef
+TARGET_DEVICES += dap-2310-a1
+
 define Device/dap-2695-a1
   DEVICE_TITLE := D-Link DAP-2695 rev. A1
   DEVICE_PACKAGES := ath10k-firmware-qca988x-ct kmod-ath10k-ct
