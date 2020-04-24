@@ -28,7 +28,7 @@ endef
 TARGET_DEVICES += tplink_tl-wr845n-v3
 
 define Device/tplink_tl-wr886n-v2
-  $(Device/tplink-8mlzma)
+  $(Device/tplink-16mlzma)
   ATH_SOC := qca9561
   DEVICE_TITLE := TP-Link TL-WR886N v2
   TPLINK_HWID := 0x08860002
