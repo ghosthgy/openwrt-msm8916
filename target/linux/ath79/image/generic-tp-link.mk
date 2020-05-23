@@ -274,7 +274,7 @@ endef
 TARGET_DEVICES += tplink_tl-wdr4300-v1-il
 
 define Device/tplink_tl-wdr4310-v1
-  $(Device/tplink-8mlzma)
+  $(Device/tplink-16mlzma)
   ATH_SOC := ar9344
   DEVICE_TITLE := TP-Link TL-WDR4310 v1
   DEVICE_PACKAGES := kmod-usb2 kmod-usb-ledtrig-usbport
