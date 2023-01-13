@@ -1,6 +1,8 @@
 #!/bin/sh /etc/rc.common
 
-START=30
+# This should run before boot service so the firmware is available
+# when the kernel modules that need it are loaded.
+START=09
 
 start() {
 	/sbin/msm-firmware-loader.sh
