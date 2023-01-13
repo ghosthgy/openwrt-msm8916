@@ -17,6 +17,7 @@ include $(INCLUDE_DIR)/target.mk
 
 DEFAULT_PACKAGES += partx-utils e2fsprogs mkf2fs
 DEFAULT_PACKAGES += kmod-usb-chipidea kmod-usb-gadget-eth
+DEFAULT_PACKAGES += kmod-wcn36xx kmod-rproc-wcnss
 
 KERNELNAME:=Image
 
