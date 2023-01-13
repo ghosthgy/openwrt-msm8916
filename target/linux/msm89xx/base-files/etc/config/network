@@ -1,6 +1,12 @@
-config interface lan
-	option ifname	usb0
-	option type 	none
-	option proto	static
-	option ipaddr	192.168.6.1
-	option netmask	255.255.255.0
+config interface 'loopback'
+	option proto 'static'
+	option ipaddr '127.0.0.1'
+	option netmask '255.0.0.0'
+	option device 'lo'
+
+config interface 'lan'
+	option type 'none'
+	option proto 'static'
+	option ipaddr '192.168.6.1'
+	option netmask '255.255.255.0'
+	option device 'usb0'
