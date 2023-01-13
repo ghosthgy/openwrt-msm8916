@@ -10,7 +10,7 @@ SUBTARGETS:=msm8916
 KERNEL_PATCHVER:=6.1
 
 define Target/Description
-	Build firmware imaes for various Snapdragon 210/410/615 based devices
+	Build firmware images for various Snapdragon 210/410/615 based devices
 endef
 
 include $(INCLUDE_DIR)/target.mk
