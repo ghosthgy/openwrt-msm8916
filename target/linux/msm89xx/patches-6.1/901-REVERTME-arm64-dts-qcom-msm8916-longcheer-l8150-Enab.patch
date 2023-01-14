@@ -1,0 +1,70 @@
+From 73929cccc6581f2eb5beaa9335ce8c421cafe1cf Mon Sep 17 00:00:00 2001
+From: Nikita Travkin <nikita@trvn.ru>
+Date: Sat, 14 Jan 2023 12:07:31 +0500
+Subject: [PATCH] REVERTME: arm64: dts: qcom: msm8916-longcheer-l8150: Enable
+ the modem
+
+This is a temporary change to enable the modem with minimal changes.
+A different solution with a special msm8916-modem-sound.dtsi is planned
+to be used upstream to handle the fact that the modem remoteproc acts as
+a system adsp and takes over the audio hw upon boot.
+
+Signed-off-by: Nikita Travkin <nikita@trvn.ru>
+---
+ .../boot/dts/qcom/msm8916-longcheer-l8150.dts | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/msm8916-longcheer-l8150.dts b/arch/arm64/boot/dts/qcom/msm8916-longcheer-l8150.dts
+index d85e7f7c0835..d542182b2d14 100644
+--- a/arch/arm64/boot/dts/qcom/msm8916-longcheer-l8150.dts
++++ b/arch/arm64/boot/dts/qcom/msm8916-longcheer-l8150.dts
+@@ -8,6 +8,8 @@
+ #include <dt-bindings/interrupt-controller/irq.h>
+ #include <dt-bindings/leds/common.h>
+ 
++/delete-node/ &mpss_mem;
++
+ / {
+ 	model = "Longcheer L8150";
+ 	compatible = "longcheer,l8150", "qcom,msm8916-v1-qrd/9-v1", "qcom,msm8916";
+@@ -29,6 +31,11 @@ wcnss_mem: wcnss@8b600000 {
+ 			reg = <0x0 0x8b600000 0x0 0x600000>;
+ 			no-map;
+ 		};
++
++		mpss_mem: mpss@8ec00000 {
++			reg = <0x0 0x8ec00000 0x0 0x5000000>;
++			no-map;
++		};
+ 	};
+ 
+ 	gpio-keys {
+@@ -76,6 +83,14 @@ flash_led: led {
+ 	};
+ };
+ 
++&bam_dmux {
++	status = "okay";
++};
++
++&bam_dmux_dma {
++	status = "okay";
++};
++
+ &blsp_i2c1 {
+ 	status = "okay";
+ 
+@@ -218,6 +233,10 @@ &blsp1_uart2 {
+ 	status = "okay";
+ };
+ 
++&mpss {
++	status = "okay";
++};
++
+ &pm8916_resin {
+ 	status = "okay";
+ 	linux,code = <KEY_VOLUMEDOWN>;
+-- 
+2.38.1
+
