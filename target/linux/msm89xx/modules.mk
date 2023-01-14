@@ -39,3 +39,22 @@ Firmware loading and control for the WCNSS remoteproc
 endef
 
 $(eval $(call KernelPackage,qcom-rproc-wcnss))
+
+define KernelPackage/qcom-rproc-modem
+  SUBMENU:=$(OTHER_MENU)
+  TITLE:=Qualcomm modem remoteproc support
+  DEPENDS:=@TARGET_msm89xx +kmod-qcom-rproc
+  KCONFIG:=\
+    CONFIG_QCOM_Q6V5_COMMON \
+    CONFIG_QCOM_Q6V5_MSS
+  FILES:=\
+    $(LINUX_DIR)/drivers/remoteproc/qcom_q6v5.ko \
+    $(LINUX_DIR)/drivers/remoteproc/qcom_q6v5_mss.ko
+  AUTOLOAD:=$(call AutoProbe,qcom_q6v5 qcom_q6v5_mss)
+endef
+
+define KernelPackage/qcom-rproc-modem/description
+Firmware loading and control for the modem remoteproc.
+endef
+
+$(eval $(call KernelPackage,qcom-rproc-modem))
